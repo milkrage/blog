@@ -18,7 +18,7 @@ def set_value(soup, field, default, type=None, max=None, min=None):
     return value
 
 
-def generator(lowercase=True, uppercase=True, number=True, length=16, amount=10):
+def generator(lowercase=True, uppercase=True, number=True, symbol=True, length=16, amount=10):
     soup = []
 
     if lowercase:
@@ -30,15 +30,21 @@ def generator(lowercase=True, uppercase=True, number=True, length=16, amount=10)
     if number:
         soup += [number for number in range(10)]
 
+    if symbol:
+        soup += [chr(symbol) for symbol in range(33, 48)]
+        soup += [chr(symbol) for symbol in range(58, 65)]
+        soup += [chr(symbol) for symbol in range(91, 96)]
+        soup += [chr(symbol) for symbol in range(123, 127)]
+
     result = []
 
     for _ in range(amount):
         password = []
 
         for item in range(length):
-            symbol = secrets.choice(soup)
-            symbol = str(symbol) if isinstance(symbol, int) else symbol
-            password.append(symbol)
+            char = secrets.choice(soup)
+            char = str(char) if isinstance(char, int) else char
+            password.append(char)
 
         result.append(''.join(password))
 

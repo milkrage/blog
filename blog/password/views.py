@@ -21,10 +21,11 @@ class PasswordView(MethodView):
         lowercase = utils.set_value(query, 'lowercase', True)
         uppercase = utils.set_value(query, 'uppercase', True)
         number = utils.set_value(query, 'number', True)
+        symbol = utils.set_value(query, 'symbol', True)
         length = utils.set_value(query, 'length', 16, type=int, min=8, max=64)
         amount = utils.set_value(query, 'amount', 10, type=int)
 
-        if not any([lowercase, uppercase, number]):
+        if not any([lowercase, uppercase, number, symbol]):
             return 'Needs at least 1 set parameter', 400
 
         return jsonify(
@@ -32,6 +33,7 @@ class PasswordView(MethodView):
                 lowercase=lowercase,
                 uppercase=uppercase,
                 number=number,
+                symbol=symbol,
                 length=length,
                 amount=amount
             )
